@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/Labo_Project.dir/HOG.c.o CMakeFiles/Labo_Project.dir/LBP.c.o  -o Labo_Project 

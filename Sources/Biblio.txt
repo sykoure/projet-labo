@@ -1,0 +1,1 @@
+http://vision.stanford.edu/teaching/cs231b_spring1213/slides/hog_rafael_tao.pdf - Explication HOG étape par étape
