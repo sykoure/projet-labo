@@ -41,9 +41,9 @@ float **PourcentageTab(tabpolaire **hog, int taillex, int tailley);
 uchar *cvPtr2D(const CvArr *arr, int idx0, int idx1, int *type);
 
 /**
- * Inverse une image "en place"
+ * Donne l'image en noire et blanc à la matrice
  */
-void remplir(IplImage *img, tabpolaire **matrice)
+void remplir(IplImage *img, int **matrice)
 {
     int x, y;
     uchar *p;
@@ -60,6 +60,7 @@ void remplir(IplImage *img, tabpolaire **matrice)
     }
 }
 
+
 //Remplit l'image avec un tableau traité
 void renvoyerImg(IplImage *img, tabpolaire **matrice)
 {
@@ -73,7 +74,7 @@ void renvoyerImg(IplImage *img, tabpolaire **matrice)
         {
             // récupération d'un pointeur sur le pixel de coordonnées (x,y)
             p = cvPtr2D(img, y, x, NULL);
-            *p = matrice[x][y];
+            *p = (int)matrice[x][y].angle*0.71;
         }
     }
 }
@@ -278,6 +279,7 @@ float **PourcentageTab(tabpolaire **hog, int taillex, int tailley)
     return pourcentage;
 }
 
+
 //Fonction affichant la matrice
 void AfficheMatGradiant(tabpolaire **mat, int taillex, int tailley)
 {
@@ -322,6 +324,8 @@ float **InitTabFloat(int taillex, int tailley)
     return matrice;
 }
 
+
+
 /**
  * Ce programme prend deux arguments dont un optionnel:
  * IMAGE:     l'image à inverser
@@ -352,7 +356,7 @@ int main(int argc, char *argv[])
 
     if (!(img = cvLoadImage(src_path, CV_LOAD_IMAGE_GRAYSCALE)))
     {
-        fprintf(stderr, "couldn't open image file: %s\n", argv[1]);
+        fprintf(stderr, "couldn't open image file in Grayscale format: %s\n", argv[1]);
         return EXIT_FAILURE;
     }
 
@@ -367,22 +371,21 @@ int main(int argc, char *argv[])
     tabpolaire **hog = NULL;
     float **pourcentage = NULL;
 
-    remplir(img, matrice);
-    //AfficheMat(matrice,size,size);
-
 	hog = InitTabPolaire(sizex,sizey);
 	matrice = InitTab(sizex,sizey);
     pourcentage = InitTabFloat(360,1);
 
-	RemplirMat(matrice,sizex,sizey);
+    remplir(img, matrice);
+    //AfficheMat(matrice,size,size);
+
 	AfficheMat(matrice,sizex,sizey);
 
 	hog = HOG(matrice,sizex,sizey);
     AfficheMatGradiant(hog,sizex,sizey);
     pourcentage = PourcentageTab(hog,sizex,sizey);
-
+    
     renvoyerImg(img, hog);
-    /**
+    
     cvNamedWindow(window_title2, CV_WINDOW_AUTOSIZE);
     cvShowImage(window_title2, img);
     cvWaitKey(0);
@@ -396,11 +399,6 @@ int main(int argc, char *argv[])
     // Libère l'image
     cvReleaseImage(&img);
 
-    // Libère les tableaux
-    LibereMatFloat(pourcentage, 256);
-    LibereMatFloat(pourcentageUniform, 59);
-    LibereMat(matrice, sizex);
-    LibereMat(lbp, sizex);
-    **/
+
     return EXIT_SUCCESS;
 }
