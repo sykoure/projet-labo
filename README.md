@@ -1,5 +1,12 @@
 # projet-labo
+
+1. First compile
+ ```
 gcc -c ex_opencv.cpp -lm -Wall `pkg-config opencv --cflags`
 gcc ex_opencv.o -lm -o ex_opencv `pkg-config opencv --libs`
+ ```
 
-./ex_opencv <image>
+2. Then run it
+ ```
+./ex_opencv (image)
+ ```
