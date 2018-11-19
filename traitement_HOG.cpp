@@ -147,7 +147,7 @@ tabpolaire TraitementHOG(int **mat, int i, int j, int taillex, int tailley)
     tabpolaire.magnitude = magnitude;
     tabpolaire.angle = (int)angle;
 
-    printf("[(%f,%d)]\n", angle, magnitude);
+    //printf("[(%f,%d)]\n", angle, magnitude);
 
     return tabpolaire;
 }
@@ -378,18 +378,19 @@ int main(int argc, char *argv[])
     remplir(img, matrice);
     //AfficheMat(matrice,size,size);
 
-	AfficheMat(matrice,sizex,sizey);
+	//AfficheMat(matrice,sizex,sizey);
 
 	hog = HOG(matrice,sizex,sizey);
-    AfficheMatGradiant(hog,sizex,sizey);
+    //AfficheMatGradiant(hog,sizex,sizey);
     pourcentage = PourcentageTab(hog,sizex,sizey);
+    AfficheTab(pourcentage,256);
+
+    //renvoyerImg(img, hog);
     
-    renvoyerImg(img, hog);
-    
-    cvNamedWindow(window_title2, CV_WINDOW_AUTOSIZE);
-    cvShowImage(window_title2, img);
-    cvWaitKey(0);
-    cvDestroyAllWindows();
+    //cvNamedWindow(window_title2, CV_WINDOW_AUTOSIZE);
+    //cvShowImage(window_title2, img);
+    //cvWaitKey(0);
+    //cvDestroyAllWindows();
 
     if (dst_path && !cvSaveImage(dst_path, img, NULL))
     {
@@ -397,7 +398,7 @@ int main(int argc, char *argv[])
     }
 
     // Libère l'image
-    cvReleaseImage(&img);
+    //cvReleaseImage(&img);
 
 
     return EXIT_SUCCESS;
