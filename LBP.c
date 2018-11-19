@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#define size 15
-#define uniform 0
+#define size 10
+#define uniform 1
 
-int test = 0;
+int test = 1;
 int UniformPatterns[58] = {0,1,2,3,4,6,7,8,9,11,15,16,20,22,23,31,32,40,41,43,47,63,64,96,104,105,107,111,127,128,144,148,150,151,159,191,192,208,212,214,215,223,224,232,233,235,239,240,244,246,247,248,249,251,252,253,254,255};
 
 //Declaration des fonctions
@@ -302,17 +302,65 @@ int main(int argv,char** tab){
     int **matrice = NULL;
     int **lbp = NULL;
     float **pourcentage = NULL; 
-    float **pourcentageUniform = NULL;   
+    float **pourcentageUniform = NULL;  
+    int **cercle = NULL;
     
+    cercle = InitTab(10,10);
     matrice = InitTab(size,size);
     lbp = InitTab(size,size);
     pourcentage = InitTabFloat(256,1);
     pourcentageUniform = InitTabFloat(59,1);
+    cercle[0][3] = 255;
+    cercle[0][4] = 255;
+    cercle[0][5] = 255;
+    cercle[0][6] = 255;
+    cercle[1][2] = 255;
+    cercle[1][3] = 255;
+    cercle[1][6] = 255;
+    cercle[1][7] = 255;
+    cercle[2][1] = 255;
+    cercle[2][2] = 255;
+    cercle[2][7] = 255;
+    cercle[2][8] = 255;
+    cercle[3][0] = 255;
+    cercle[3][1] = 255;
+    cercle[3][8] = 255;
+    cercle[3][9] = 255;
+    cercle[4][0] = 255;
+    cercle[4][9] = 255;
+    cercle[5][0] = 255;
+    cercle[5][1] = 255;
+    cercle[5][8] = 255;
+    cercle[5][9] = 255;
+    cercle[6][1] = 255;
+    cercle[6][2] = 255;
+    cercle[6][7] = 255;
+    cercle[6][8] = 255;
+    cercle[7][2] = 255;
+    cercle[7][3] = 255;
+    cercle[7][6] = 255;
+    cercle[7][7] = 255;
+    cercle[8][3] = 255;
+    cercle[8][4] = 255;
+    cercle[8][5] = 255;
+    cercle[8][6] = 255;
 
+/**
+                        {0,0,0,1,1,1,1,0,0,0},
+                        {0,0,1,1,0,0,1,1,0,0},
+                        {0,1,1,0,0,0,0,1,1,0},
+                        {1,1,0,0,0,0,0,0,1,1},
+                        {1,0,0,0,0,0,0,0,0,1},
+                        {1,1,0,0,0,0,0,0,1,1},
+                        {0,1,1,0,0,0,0,1,1,0},
+                        {0,0,1,1,0,0,1,1,0,0},
+                        {0,0,0,1,1,1,1,0,0,0}
+                        };
+**/
     RemplirMat(matrice,size,size);
-    AfficheMat(matrice,size,size);
-    lbp = LBP(matrice,size,size);
-    AfficheMat(lbp,size,size);
+    AfficheMat(cercle,size,size);
+    lbp = LBP(cercle,size,size);
+    //AfficheMat(lbp,size,size);
     if(uniform == 0){
         pourcentage = PourcentageTab(lbp,size,size);
         AfficheTab(pourcentage,256);

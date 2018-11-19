@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#define size 15
+#define size 10
 #define PI 3.14159265
 
 //Nous utiliserons le filtre de Prewitt pour le moment
@@ -255,17 +255,55 @@ int main(int argv,char** argc){
 	int **matrice = NULL;
 	tabpolaire **hog = NULL;
     float** pourcentage = NULL;
-
+    int **cercle = NULL;
+    
+    cercle = InitTab(10,10);
 	hog = InitTabPolaire(size,size);
 	matrice = InitTab(size,size);
     pourcentage = InitTabFloat(360,1);
 
-	RemplirMat(matrice,size,size);
-	AfficheMat(matrice,size,size);
+    cercle[0][3] = 255;
+    cercle[0][4] = 255;
+    cercle[0][5] = 255;
+    cercle[0][6] = 255;
+    cercle[1][2] = 255;
+    cercle[1][3] = 255;
+    cercle[1][6] = 255;
+    cercle[1][7] = 255;
+    cercle[2][1] = 255;
+    cercle[2][2] = 255;
+    cercle[2][7] = 255;
+    cercle[2][8] = 255;
+    cercle[3][0] = 255;
+    cercle[3][1] = 255;
+    cercle[3][8] = 255;
+    cercle[3][9] = 255;
+    cercle[4][0] = 255;
+    cercle[4][9] = 255;
+    cercle[5][0] = 255;
+    cercle[5][1] = 255;
+    cercle[5][8] = 255;
+    cercle[5][9] = 255;
+    cercle[6][1] = 255;
+    cercle[6][2] = 255;
+    cercle[6][7] = 255;
+    cercle[6][8] = 255;
+    cercle[7][2] = 255;
+    cercle[7][3] = 255;
+    cercle[7][6] = 255;
+    cercle[7][7] = 255;
+    cercle[8][3] = 255;
+    cercle[8][4] = 255;
+    cercle[8][5] = 255;
+    cercle[8][6] = 255;
 
-	hog = HOG(matrice,size,size);
+	RemplirMat(cercle,size,size);
+	AfficheMat(cercle,size,size);
+
+	hog = HOG(cercle,size,size);
     AfficheMatGradiant(hog,size,size);
     pourcentage = PourcentageTab(hog,size,size);
+    AfficheTab(pourcentage,256);
 	
 	
 
