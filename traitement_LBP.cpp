@@ -5,9 +5,13 @@
 #include <time.h>
 #include <math.h>
 #include <opencv/highgui.h>
+#include <iostream>
+#include <string>
+#include <fstream>
 
 #define uniform 1
 
+using namespace std;
 int test = 0;
 int UniformPatterns[58] = {0, 1, 2, 3, 4, 6, 7, 8, 9, 11, 15, 16, 20, 22, 23, 31, 32, 40, 41, 43, 47, 63, 64, 96, 104, 105, 107, 111, 127, 128, 144, 148, 150, 151, 159, 191, 192, 208, 212, 214, 215, 223, 224, 232, 233, 235, 239, 240, 244, 246, 247, 248, 249, 251, 252, 253, 254, 255};
 
@@ -392,6 +396,8 @@ int main(int argc, char *argv[])
     const char *dst_path = NULL;
     const char *window_title = "Image de base";
     const char *window_title2 = "Image traitée";
+    ofstream fichier("test.csv", ios::out | ios::ate);  // ouverture en écriture avec effacement du fichier
+
 
     int sizex, sizey;
     int **matrice = NULL;
@@ -444,6 +450,23 @@ int main(int argc, char *argv[])
     {
         pourcentageUniform = PourcentageTabUniform(lbp, sizex, sizey);
         AfficheTabUniform(pourcentageUniform, 59);
+    }
+
+    int i;
+    for (i = 0; i < 59; i++)
+    {
+        printf("La valeur %d est présente à %.2f pourcent dans l'image\n", i, pourcentageUniform[i][0]); 
+        if(fichier)
+        {
+                float mat = pourcentageUniform[i][0];
+                fichier << mat << ",";
+ 
+        }
+        else{
+                cerr << "Impossible d'ouvrir le fichier !" << endl;
+        }
+ 
+        
     }
 
     renvoyerImg(img, lbp);

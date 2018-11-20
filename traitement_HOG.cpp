@@ -5,8 +5,14 @@
 #include <time.h>
 #include <math.h>
 #include <opencv/highgui.h>
+#include <iostream>
+#include <string>
+#include <fstream>
 
 #define PI 3.14159265
+
+
+using namespace std;
 
 //Nous utiliserons le filtre de Prewitt pour le moment
 int GradiantFilter[3][3] = {
@@ -333,12 +339,14 @@ float **InitTabFloat(int taillex, int tailley)
  */
 int main(int argc, char *argv[])
 {
+    
     IplImage *img = NULL;
     const char *src_path = NULL;
     const char *dst_path = NULL;
     const char *window_title = "Image de base";
     const char *window_title2 = "Image traitée";
 
+    ofstream fichier("test.csv", ios::out | ios::ate);  // ouverture en écriture avec effacement du fichier
     int sizex, sizey;
 
     if (argc < 2)
@@ -383,14 +391,32 @@ int main(int argc, char *argv[])
 	hog = HOG(matrice,sizex,sizey);
     //AfficheMatGradiant(hog,sizex,sizey);
     pourcentage = PourcentageTab(hog,sizex,sizey);
-    AfficheTab(pourcentage,256);
+    //AfficheTab(pourcentage,256);
 
-    //renvoyerImg(img, hog);
+    int i;
+    for (i = 0; i < 256; i++)
+    {
+        printf("La valeur %d est présente à %.2f pourcent dans l'image\n", i, pourcentage[i][0]); 
+        if(fichier)
+        {
+                float mat = pourcentage[i][0];
+                fichier << mat << ",";
+ 
+        }
+        else{
+                cerr << "Impossible d'ouvrir le fichier !" << endl;
+        }
+ 
+        
+    }
+    printf("\n");
+
+    renvoyerImg(img, hog);
     
-    //cvNamedWindow(window_title2, CV_WINDOW_AUTOSIZE);
-    //cvShowImage(window_title2, img);
-    //cvWaitKey(0);
-    //cvDestroyAllWindows();
+    cvNamedWindow(window_title2, CV_WINDOW_AUTOSIZE);
+    cvShowImage(window_title2, img);
+    cvWaitKey(0);
+    cvDestroyAllWindows();
 
     if (dst_path && !cvSaveImage(dst_path, img, NULL))
     {
