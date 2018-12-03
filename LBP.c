@@ -8,6 +8,9 @@
 int test = 1;
 int UniformPatterns[58] = {0,1,2,3,4,6,7,8,9,11,15,16,20,22,23,31,32,40,41,43,47,63,64,96,104,105,107,111,127,128,144,148,150,151,159,191,192,208,212,214,215,223,224,232,233,235,239,240,244,246,247,248,249,251,252,253,254,255};
 
+//#define DEBUG
+
+
 //Declaration des fonctions
 int **LBP(int** mat,int taillex,int tailley);
 void AfficheMat(int** mat,int taillex,int tailley);
@@ -29,11 +32,15 @@ int AppartientTab(float valeur){
     int i;
     for(i = 0; i < 58;i++){
         if(valeur == UniformPatterns[i]){
-            //printf("Valeur uniforme %.2f and index = %d\n",valeur,i);
+            #ifdef DEBUG
+            printf("Valeur uniforme %.2f and index = %d\n",valeur,i);
+            #endif
             return i;
         }
         else if(valeur < UniformPatterns[i]){
-            //printf("Valeur non uniforme %.2f and index = %d\n",valeur,i);
+            #ifdef DEBUG
+            printf("Valeur non uniforme %.2f and index = %d\n",valeur,i);
+            #endif
             return -1;
         }
     }
@@ -54,8 +61,10 @@ int TraitementLBP(int **mat,int i,int j,int taillex,int tailley){
             matTemp[compteur_l][compteur_c] = mat[ligne][colonne] - mat[i][j];
 
 	    if(test < 5){		
+        #ifdef DEBUG
 	    printf("DIFFERENCE ENTRE %d et %d \n",mat[ligne][colonne],mat[i][j]);
-		}
+        #endif
+        }
             //On transforme la matrice différence en matrice binaire
             if(matTemp[compteur_l][compteur_c]>= 0){
                 matTemp[compteur_l][compteur_c] = 1;
@@ -75,7 +84,9 @@ int TraitementLBP(int **mat,int i,int j,int taillex,int tailley){
         }
     }
 	if(test < 5){
+        #ifdef DEBUG
 		printf("binary matrice \n");
+        #endif
 		AfficheMat(matTemp,3,3);
 	}
     	
@@ -89,7 +100,9 @@ int TraitementLBP(int **mat,int i,int j,int taillex,int tailley){
             else{
                 somme = somme + pow(2,compteur_somme)*matTemp[ligne][colonne];
 		        if(test < 5){
+                    #ifdef DEBUG
 			        printf("la somme est egal à %d\n",somme);
+                    #endif
 		        }
                 compteur_somme++;
             }
@@ -151,7 +164,9 @@ float **PourcentageTab(int** lbp,int taillex,int tailley){
 			    somme = somme +pourcentage[i][j]; 
         	}
     	}
+    #ifdef DEBUG
 	printf("la somme est egale à %f\n",somme);
+    #endif
 	return pourcentage;
 }
 
@@ -191,13 +206,15 @@ float **PourcentageTabUniform(int** lbp,int taillex,int tailley){
 		    somme = somme +pourcentage[i][j]; 
         }
     }
+    #ifdef DEBUG
 	printf("la somme est egale à %f\n",somme);
+    #endif
 	return pourcentage;
 }
 
 //Fonction affichant la matrice
 void AfficheMat(int** mat,int taillex,int tailley){
-
+    #ifdef DEBUG
     int i,j;
     for(i=0; i < taillex; i++){
         printf("\n ligne : %d\n",i);
@@ -206,27 +223,30 @@ void AfficheMat(int** mat,int taillex,int tailley){
         }
     }
     printf("\n");
+    #endif
 }
 
 //Fonction affichant un tableau
 void AfficheTab(float** mat,int taille){
-
+    #ifdef DEBUG
     int i;
     for(i = 0; i < taille; i++){
         printf("La valeur %d est présente à %.2f pourcent dans l'image\n",i,mat[i][0]);
     }
     printf("\n");
+    #endif
 }
 
 //Fonction affichant un tableau Uniform pattern
 void AfficheTabUniform(float** mat,int taille){
-
+    #ifdef DEBUG
     int i;
     for(i = 0; i < taille-1; i++){
         printf("La valeur %d est présente à %.2f pourcent dans l'image\n",UniformPatterns[i],mat[i][0]);
     }
     printf("Les patterns non-uniforms sont présents à %.2f pourcent dans l'image\n",mat[58][0]);
     printf("\n");
+    #endif
 }
 
 
@@ -303,64 +323,16 @@ int main(int argv,char** tab){
     int **lbp = NULL;
     float **pourcentage = NULL; 
     float **pourcentageUniform = NULL;  
-    int **cercle = NULL;
-    
-    cercle = InitTab(10,10);
+
     matrice = InitTab(size,size);
     lbp = InitTab(size,size);
     pourcentage = InitTabFloat(256,1);
     pourcentageUniform = InitTabFloat(59,1);
-    cercle[0][3] = 255;
-    cercle[0][4] = 255;
-    cercle[0][5] = 255;
-    cercle[0][6] = 255;
-    cercle[1][2] = 255;
-    cercle[1][3] = 255;
-    cercle[1][6] = 255;
-    cercle[1][7] = 255;
-    cercle[2][1] = 255;
-    cercle[2][2] = 255;
-    cercle[2][7] = 255;
-    cercle[2][8] = 255;
-    cercle[3][0] = 255;
-    cercle[3][1] = 255;
-    cercle[3][8] = 255;
-    cercle[3][9] = 255;
-    cercle[4][0] = 255;
-    cercle[4][9] = 255;
-    cercle[5][0] = 255;
-    cercle[5][1] = 255;
-    cercle[5][8] = 255;
-    cercle[5][9] = 255;
-    cercle[6][1] = 255;
-    cercle[6][2] = 255;
-    cercle[6][7] = 255;
-    cercle[6][8] = 255;
-    cercle[7][2] = 255;
-    cercle[7][3] = 255;
-    cercle[7][6] = 255;
-    cercle[7][7] = 255;
-    cercle[8][3] = 255;
-    cercle[8][4] = 255;
-    cercle[8][5] = 255;
-    cercle[8][6] = 255;
 
-/**
-                        {0,0,0,1,1,1,1,0,0,0},
-                        {0,0,1,1,0,0,1,1,0,0},
-                        {0,1,1,0,0,0,0,1,1,0},
-                        {1,1,0,0,0,0,0,0,1,1},
-                        {1,0,0,0,0,0,0,0,0,1},
-                        {1,1,0,0,0,0,0,0,1,1},
-                        {0,1,1,0,0,0,0,1,1,0},
-                        {0,0,1,1,0,0,1,1,0,0},
-                        {0,0,0,1,1,1,1,0,0,0}
-                        };
-**/
     RemplirMat(matrice,size,size);
-    AfficheMat(cercle,size,size);
-    lbp = LBP(cercle,size,size);
-    //AfficheMat(lbp,size,size);
+    AfficheMat(matrice,size,size);
+    lbp = LBP(matrice,size,size);
+    AfficheMat(lbp,size,size);
     if(uniform == 0){
         pourcentage = PourcentageTab(lbp,size,size);
         AfficheTab(pourcentage,256);

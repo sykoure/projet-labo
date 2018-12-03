@@ -5,6 +5,9 @@
 #define size 10
 #define PI 3.14159265
 
+//#define DEBUG
+
+
 //Nous utiliserons le filtre de Prewitt pour le moment
 int GradiantFilter[3][3] = {
                             {-1,0,1},
@@ -98,7 +101,9 @@ tabpolaire TraitementHOG(int **mat,int i,int j,int taillex,int tailley){
     tabpolaire.magnitude = magnitude;
     tabpolaire.angle = (int)angle;
 
-    printf("[(%f,%d)]\n",angle,magnitude);
+    #ifdef DEBUG
+        printf("[(%f,%d)]\n",angle,magnitude);
+    #endif
 
     return tabpolaire;
 }
@@ -163,15 +168,16 @@ tabpolaire **InitTabPolaire(int taillex,int tailley){
 
 //Fonction affichant la matrice
 void AfficheMat(int** mat,int taillex,int tailley){
-
+    #ifdef DEBUG
     int i,j;
     for(i=0; i < taillex; i++){
-        printf("\n ligne : %d\n",i);
+            printf("\n ligne : %d\n",i);
         for(j = 0; j < tailley; j++){
             printf("[%d]",mat[i][j]);
         }
     }
     printf("\n");
+    #endif
 }
 
 float **PourcentageTab(tabpolaire** hog,int taillex,int tailley){
@@ -207,13 +213,15 @@ float **PourcentageTab(tabpolaire** hog,int taillex,int tailley){
 			    somme = somme +pourcentage[i][j]; 
         	}
     	}
-	printf("la somme est egale à %f\n",somme);
+    #ifdef DEBUG
+	    printf("la somme est egale à %f\n",somme);
+    #endif
 	return pourcentage;
 }
 
 //Fonction affichant la matrice
 void AfficheMatGradiant(tabpolaire** mat,int taillex,int tailley){
-
+    #ifdef DEBUG
     int i,j;
     for(i=0; i < taillex; i++){
         printf("\n ligne : %d\n",i);
@@ -222,15 +230,17 @@ void AfficheMatGradiant(tabpolaire** mat,int taillex,int tailley){
         }
     }
     printf("\n");
+    #endif
 }
 //Fonction affichant un tableau
 void AfficheTab(float** mat,int taille){
-
+    #ifdef DEBUG
     int i;
     for(i = 0; i < taille; i++){
         printf("La valeur %d est présente à %.2f pourcent dans l'image\n",i,mat[i][0]);
     }
     printf("\n");
+    #endif
 }
 
 float **InitTabFloat(int taillex,int tailley){
@@ -255,52 +265,15 @@ int main(int argv,char** argc){
 	int **matrice = NULL;
 	tabpolaire **hog = NULL;
     float** pourcentage = NULL;
-    int **cercle = NULL;
     
-    cercle = InitTab(10,10);
 	hog = InitTabPolaire(size,size);
 	matrice = InitTab(size,size);
     pourcentage = InitTabFloat(360,1);
 
-    cercle[0][3] = 255;
-    cercle[0][4] = 255;
-    cercle[0][5] = 255;
-    cercle[0][6] = 255;
-    cercle[1][2] = 255;
-    cercle[1][3] = 255;
-    cercle[1][6] = 255;
-    cercle[1][7] = 255;
-    cercle[2][1] = 255;
-    cercle[2][2] = 255;
-    cercle[2][7] = 255;
-    cercle[2][8] = 255;
-    cercle[3][0] = 255;
-    cercle[3][1] = 255;
-    cercle[3][8] = 255;
-    cercle[3][9] = 255;
-    cercle[4][0] = 255;
-    cercle[4][9] = 255;
-    cercle[5][0] = 255;
-    cercle[5][1] = 255;
-    cercle[5][8] = 255;
-    cercle[5][9] = 255;
-    cercle[6][1] = 255;
-    cercle[6][2] = 255;
-    cercle[6][7] = 255;
-    cercle[6][8] = 255;
-    cercle[7][2] = 255;
-    cercle[7][3] = 255;
-    cercle[7][6] = 255;
-    cercle[7][7] = 255;
-    cercle[8][3] = 255;
-    cercle[8][4] = 255;
-    cercle[8][5] = 255;
-    cercle[8][6] = 255;
+	RemplirMat(matrice,size,size);
+	AfficheMat(matrice,size,size);
 
-	RemplirMat(cercle,size,size);
-	AfficheMat(cercle,size,size);
-
-	hog = HOG(cercle,size,size);
+	hog = HOG(matrice,size,size);
     AfficheMatGradiant(hog,size,size);
     pourcentage = PourcentageTab(hog,size,size);
     AfficheTab(pourcentage,256);
