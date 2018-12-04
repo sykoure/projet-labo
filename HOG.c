@@ -7,7 +7,6 @@
 
 //#define DEBUG
 
-
 //Nous utiliserons le filtre de Prewitt pour le moment
 int GradiantFilter[3][3] = {
                             {-1,0,1},
@@ -283,7 +282,5 @@ int main(int argv,char** argc){
     pourcentage = PourcentageTab(hog,size,size);
     AfficheTab(pourcentage,256);
 	
-	
-
 	return 0;
 }
