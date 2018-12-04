@@ -131,6 +131,7 @@ int **LBP(int** mat,int taillex,int tailley){
     return lbp;
 }
 
+// Fonction permettant de renvoyer un tableau de pourcentage pour les valeurs non-uniformes
 float **PourcentageTab(int** lbp,int taillex,int tailley){
 	int i,j;
 	int pacerelle=0;
@@ -170,6 +171,7 @@ float **PourcentageTab(int** lbp,int taillex,int tailley){
 	return pourcentage;
 }
 
+// Fonction permettant de renvoyer un tableau de pourcentage pour les valeurs uniformes
 float **PourcentageTabUniform(int** lbp,int taillex,int tailley){
 	int i,j;
 	float **pourcentage = NULL;
@@ -300,6 +302,7 @@ int **InitTab(int taillex,int tailley){
     return matrice;
 }
 
+//Fonction initialisant dynamiquement un tableau de float
 float **InitTabFloat(int taillex,int tailley){
 
     int i;
@@ -318,17 +321,21 @@ float **InitTabFloat(int taillex,int tailley){
 
 
 int main(int argv,char** tab){
+
+    // Initialisation des variables à NULL
     srand(time(NULL));
     int **matrice = NULL;
     int **lbp = NULL;
     float **pourcentage = NULL; 
     float **pourcentageUniform = NULL;  
 
+    // Allocation de la mémoire
     matrice = InitTab(size,size);
     lbp = InitTab(size,size);
     pourcentage = InitTabFloat(256,1);
     pourcentageUniform = InitTabFloat(59,1);
 
+    // Partie traitement
     RemplirMat(matrice,size,size);
     AfficheMat(matrice,size,size);
     lbp = LBP(matrice,size,size);
@@ -342,6 +349,7 @@ int main(int argv,char** tab){
         AfficheTabUniform(pourcentageUniform,59);
     }
 
+    // Liberation de la mémoire
 	LibereMatFloat(pourcentage,256);
 	LibereMatFloat(pourcentageUniform,59);
 	LibereMat(matrice,size);

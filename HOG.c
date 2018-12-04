@@ -180,6 +180,7 @@ void AfficheMat(int** mat,int taillex,int tailley){
     #endif
 }
 
+// Fonction permettant de renvoyer un tableau de pourcentage
 float **PourcentageTab(tabpolaire** hog,int taillex,int tailley){
 	int i,j;
 	int pacerelle=0;
@@ -261,15 +262,19 @@ float **InitTabFloat(int taillex,int tailley){
 
 //Fonction main
 int main(int argv,char** argc){
+
+    // Initialisation des variables à NULL
 	srand(time(NULL));
 	int **matrice = NULL;
 	tabpolaire **hog = NULL;
     float** pourcentage = NULL;
     
+    // Allocation de la mémoire
 	hog = InitTabPolaire(size,size);
 	matrice = InitTab(size,size);
     pourcentage = InitTabFloat(360,1);
 
+    // Partie traitement
 	RemplirMat(matrice,size,size);
 	AfficheMat(matrice,size,size);
 

@@ -184,6 +184,7 @@ int **LBP(int **mat, int taillex, int tailley)
     return lbp;
 }
 
+// Fonction permettant de renvoyer un tableau de pourcentage pour les valeurs non-uniformes
 float **PourcentageTab(int **lbp, int taillex, int tailley)
 {
     int i, j;
@@ -230,6 +231,7 @@ float **PourcentageTab(int **lbp, int taillex, int tailley)
     return pourcentage;
 }
 
+// Fonction permettant de renvoyer un tableau de pourcentage pour les valeurs uniformes
 float **PourcentageTabUniform(int **lbp, int taillex, int tailley)
 {
     int i, j;
@@ -391,6 +393,7 @@ float **InitTabFloat(int taillex, int tailley)
  */
 int main(int argc, char *argv[])
 {
+    // Initialise les variables pour la partie OpenCV
     IplImage *img = NULL;
     const char *src_path = NULL;
     const char *dst_path = NULL;
@@ -398,7 +401,7 @@ int main(int argc, char *argv[])
     const char *window_title2 = "Image traitée";
     ofstream fichier("test.csv", ios::out | ios::ate);  // ouverture en écriture avec effacement du fichier
 
-
+    // Initialise les variables pour la partie traitement LBP
     int sizex, sizey;
     int **matrice = NULL;
     int **lbp = NULL;
@@ -424,11 +427,11 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    sizey = img->height;
-    sizex = img->width;
-
     cvNamedWindow(window_title, CV_WINDOW_AUTOSIZE);
     cvShowImage(window_title, img);
+
+    sizey = img->height;
+    sizex = img->width;
 
     // Partie traitement
     matrice = InitTab(sizex, sizey);
@@ -437,7 +440,6 @@ int main(int argc, char *argv[])
     pourcentageUniform = InitTabFloat(59, 1);
 
     remplir(img, matrice);
-    //AfficheMat(matrice,size,size);
 
     lbp = LBP(matrice, sizex, sizey);
     AfficheMat(lbp, sizex, sizey);
@@ -452,6 +454,7 @@ int main(int argc, char *argv[])
         AfficheTabUniform(pourcentageUniform, 59);
     }
 
+    //Permet de sauvegarder les valeurs dans un fichier (afin de creer un histogramme)
     int i;
     for (i = 0; i < 59; i++)
     {
@@ -476,6 +479,7 @@ int main(int argc, char *argv[])
     cvWaitKey(0);
     cvDestroyAllWindows();
 
+    // Dans le cas où l'image n'a pas pu être sauvegardée
     if (dst_path && !cvSaveImage(dst_path, img, NULL))
     {
         fprintf(stderr, "couldn't write image to file: %s\n", dst_path);

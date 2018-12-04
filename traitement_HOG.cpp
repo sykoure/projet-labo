@@ -313,6 +313,7 @@ void AfficheTab(float **mat, int taille)
     printf("\n");
 }
 
+//Fonction permettant d'afficher un tableau de float
 float **InitTabFloat(int taillex, int tailley)
 {
 
@@ -340,6 +341,7 @@ float **InitTabFloat(int taillex, int tailley)
 int main(int argc, char *argv[])
 {
     
+    // Initialise les variables pour la partie OpenCV
     IplImage *img = NULL;
     const char *src_path = NULL;
     const char *dst_path = NULL;
@@ -384,15 +386,17 @@ int main(int argc, char *argv[])
     pourcentage = InitTabFloat(360,1);
 
     remplir(img, matrice);
-    //AfficheMat(matrice,size,size);
+    AfficheMat(matrice,sizex,sizey);
 
-	//AfficheMat(matrice,sizex,sizey);
+	AfficheMat(matrice,sizex,sizey);
 
 	hog = HOG(matrice,sizex,sizey);
-    //AfficheMatGradiant(hog,sizex,sizey);
+    AfficheMatGradiant(hog,sizex,sizey);
     pourcentage = PourcentageTab(hog,sizex,sizey);
-    //AfficheTab(pourcentage,256);
+    AfficheTab(pourcentage,256);
 
+
+    //Permet de sauvegarder les valeurs dans un fichier (afin de creer un histogramme)
     int i;
     for (i = 0; i < 256; i++)
     {
@@ -424,7 +428,7 @@ int main(int argc, char *argv[])
     }
 
     // Libère l'image
-    //cvReleaseImage(&img);
+    cvReleaseImage(&img);
 
 
     return EXIT_SUCCESS;
