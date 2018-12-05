@@ -1,0 +1,149 @@
+nombre de groupes = 7
+%Les commentaires doivent etre mis ici.
+groupe = 0 , type = 14 , nbre neurones = 1 , seuil = 0.000000
+taillex = 1 , tailley = 1
+learning rate = 1.000000 
+simulation speed = 1.000000 
+type2  = 0 
+groupe = f_debut
+posx = 134 , posy = 244
+reverse = -1
+p_posx = 0 , p_posy = 20
+debug = -3
+ech_temps = 1
+
+%Les commentaires doivent etre mis ici.
+groupe = 1 , type = 14 , nbre neurones = 1 , seuil = 0.000000
+taillex = 1 , tailley = 1
+learning rate = 1.000000 
+simulation speed = 1.000000 
+type2  = 0 
+groupe = f_convert_RGB_NB
+posx = 424 , posy = 235
+reverse = -1
+p_posx = 148 , p_posy = 20
+debug = -3
+ech_temps = 0
+
+%Les commentaires doivent etre mis ici.
+groupe = 2 , type = 14 , nbre neurones = 1 , seuil = 0.000000
+taillex = 1 , tailley = 1
+learning rate = 1.000000 
+simulation speed = 1.000000 
+type2  = 0 
+groupe = f_HOG
+posx = 718 , posy = 226
+reverse = -1
+p_posx = 296 , p_posy = 20
+debug = -3
+ech_temps = 0
+
+%Les commentaires doivent etre mis ici.
+groupe = 3 , type = 14 , nbre neurones = 1 , seuil = 0.000000
+taillex = 1 , tailley = 1
+learning rate = 1.000000 
+simulation speed = 1.000000 
+type2  = 0 
+groupe = f_wait_nanosleep
+posx = 1043 , posy = 109
+reverse = -1
+p_posx = 444 , p_posy = 20
+debug = -3
+ech_temps = 0
+
+%Les commentaires doivent etre mis ici.
+groupe = 4 , type = 14 , nbre neurones = 1 , seuil = 0.000000
+taillex = 1 , tailley = 1
+learning rate = 1.000000 
+simulation speed = 1.000000 
+type2  = 0 
+groupe = f_affiche_image_from_extension
+posx = 1041 , posy = 361
+reverse = -1
+p_posx = 592 , p_posy = 20
+debug = -3
+ech_temps = 0
+
+%Les commentaires doivent etre mis ici.
+groupe = 6 , type = 14 , nbre neurones = 1 , seuil = 0.000000
+taillex = 1 , tailley = 1
+learning rate = 1.000000 
+simulation speed = 1.000000 
+type2  = 0 
+groupe = f_affiche_image_from_extension
+posx = 1044 , posy = 482
+reverse = -100
+p_posx = 740 , p_posy = 20
+debug = -3
+ech_temps = 0
+
+%Les commentaires doivent etre mis ici.
+groupe = 5 , type = 14 , nbre neurones = 1 , seuil = 0.000000
+taillex = 1 , tailley = 1
+learning rate = 1.000000 
+simulation speed = 1.000000 
+type2  = 0 
+groupe = f_load_image_sequential
+posx = 362 , posy = 489
+reverse = -1
+p_posx = 0 , p_posy = 168
+debug = -3
+ech_temps = 0
+
+nombre de liaisons = 7
+%Les commentaires doivent etre mis ici.
+liaison entre 0   et 5 , type = 5 , nbre = 1 , norme = 0.100000
+                         temps de memorisation entree= 0.000000 
+                         temps de memorisation sortie= 0.000000 
+                         mode de calcul        = 0 
+                         secondaire            = 0 
+                         nom = images
+                         proba = 1.000000 
+%Les commentaires doivent etre mis ici.
+liaison entre 0   et 1 , type = 5 , nbre = 1 , norme = 0.100000
+                         temps de memorisation entree= 0.000000 
+                         temps de memorisation sortie= 0.000000 
+                         mode de calcul        = 0 
+                         secondaire            = 0 
+                         nom = images
+                         proba = 1.000000 
+%Les commentaires doivent etre mis ici.
+liaison entre 5   et 1 , type = 5 , nbre = 1 , norme = 0.100000
+                         temps de memorisation entree= 0.000000 
+                         temps de memorisation sortie= 0.000000 
+                         mode de calcul        = 0 
+                         secondaire            = 0 
+                         nom = Give
+                         proba = 1.000000 
+%Les commentaires doivent etre mis ici.
+liaison entre 1   et 2 , type = 5 , nbre = 1 , norme = 0.100000
+                         temps de memorisation entree= 0.000000 
+                         temps de memorisation sortie= 0.000000 
+                         mode de calcul        = 0 
+                         secondaire            = 0 
+                         nom = Give
+                         proba = 1.000000 
+%Les commentaires doivent etre mis ici.
+liaison entre 5   et 6 , type = 5 , nbre = 1 , norme = 0.100000
+                         temps de memorisation entree= 0.000000 
+                         temps de memorisation sortie= 0.000000 
+                         mode de calcul        = 0 
+                         secondaire            = 0 
+                         nom = Render
+                         proba = 1.000000 
+%Les commentaires doivent etre mis ici.
+liaison entre 2   et 4 , type = 5 , nbre = 1 , norme = 0.100000
+                         temps de memorisation entree= 0.000000 
+                         temps de memorisation sortie= 0.000000 
+                         mode de calcul        = 0 
+                         secondaire            = 0 
+                         nom = Render
+                         proba = 1.000000 
+%Les commentaires doivent etre mis ici.
+liaison entre 2   et 3 , type = 5 , nbre = 1 , norme = 0.100000
+                         temps de memorisation entree= 0.000000 
+                         temps de memorisation sortie= 0.000000 
+                         mode de calcul        = 0 
+                         secondaire            = 0 
+                         nom = Sleep
+                         proba = 1.000000 
